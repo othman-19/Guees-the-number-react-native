@@ -9,13 +9,13 @@ import {
 
 const StartGameScreen = () => (
   <View style={styles.screen}>
-    <Text style={styles.headerTitle}>
+    <Text style={styles.title}>
       Start a New Game!
     </Text>
-    <View>
+    <View style={styles.inputContainer}>
       <Text>Select a Number</Text>
       <TextInput />
-      <View>
+      <View style={styles.buttonContainer}>
         <Button title="Reset" />
         <Button title="Confirm" />
       </View>
@@ -30,17 +30,31 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
   },
-  header: {
-    width: '100%',
-    height: 90,
-    paddingTop: 36,
-    backgroundColor: '#f7287b',
-    alignItems: 'center',
-    justifyContent: 'center',
+  title: {
+    fontSize: 20,
+    marginVertical: 10,
   },
-  headerTitle: {
-    color: 'black',
-    fontSize: 18,
+  inputContainer: {
+    width: 300,
+    maxWidth: '80%',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 6,
+    shadowColor: 'black',
+    shadowRadius: 6,
+    shadowOpacity: 0.6,
+    shadowOffset: {
+      height: 2,
+      width: 0,
+    },
+    backgroundColor: 'white',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
   },
 });
 
