@@ -1,7 +1,9 @@
 import React from 'react';
 import {
+  Button,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 
@@ -10,6 +12,15 @@ const StartGameScreen = () => (
     <Text style={styles.headerTitle}>
       Start a New Game!
     </Text>
+    <View>
+      <Text>Select a Number</Text>
+      <TextInput />
+      <View>
+        <Button title="Reset" />
+        <Button title="Confirm" />
+      </View>
+    </View>
+
   </View>
 );
 
