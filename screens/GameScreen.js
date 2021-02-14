@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -8,7 +9,6 @@ import {
 
 import Card from '../components/Card';
 import NumberContainer from '../components/NumberContainer';
-import Colors from '../constants/colors';
 
 const generateRandomNumber = (min, max, exclude) => {
   const Min = Math.ceil(min);
@@ -20,20 +20,53 @@ const generateRandomNumber = (min, max, exclude) => {
   return randomNum;
 };
 
-const GameScreen = ({ userChoice }) => {
-  const [currentGess, setCurrentGuess] = useState(
+const GameScreen = ({ userChoice, onGameOver }) => {
+  const [currentGuess, setCurrentGuess] = useState(
     generateRandomNumber(1, 100, userChoice),
   );
-  const nextGuessHandler = direction => {
+  const [rounds, setRounds] = useState(0);
+  const currentLow = useRef(1);
+  const currentHight = useRef(100);
 
-  }
+  useEffect(
+    () => {
+      if (currentGuess === userChoice) {
+        onGameOver(rounds);
+      }
+    },
+    [currentGuess, userChoice, onGameOver],
+  );
+  const nextGuessHandler = direction => {
+    if (
+      (direction === 'lower' && currentGuess < userChoice)
+      || (direction === 'greater' && currentGuess > userChoice)) {
+      Alert.alert(
+        'Don\'t lie',
+        'This is Wrong ...',
+        [
+          {
+            text: 'Sorry!',
+            style: 'cancel',
+          }],
+      );
+      return;
+    }
+    if (direction === 'lower') {
+      currentHight.current = currentGuess;
+    } else {
+      currentLow.current = currentGuess;
+    }
+    const nextNumber = generateRandomNumber(currentLow.current, currentHight.current, currentGuess);
+    setCurrentGuess(nextNumber);
+    setRounds(currentRound => currentRound + 1);
+  };
   return (
     <View style={styles.screen}>
       <Text>
         Component Guess.
       </Text>
       <NumberContainer>
-        {currentGess}
+        {currentGuess}
       </NumberContainer>
       <Card style={styles.buttonContainer}>
         <Button
