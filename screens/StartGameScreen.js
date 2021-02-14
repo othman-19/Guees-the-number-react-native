@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import {
   Button,
+  Keyboard,
   StyleSheet,
   Text,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -16,29 +18,31 @@ const StartGameScreen = () => {
     setEntredValue(inputText.replace(/[^0-9]/g, ''));
   };
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>
-        Start a New Game!
-      </Text>
-      <Card style={styles.inputContainer}>
-        <Text>Select a Number</Text>
-        <Input
-          style={styles.input}
-          blurOnSubmit
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="number-pad"
-          maxLength={2}
-          onChangeText={numbeInputHandler}
-          value={entredValue}
-        />
-        <View style={styles.buttonContainer}>
-          <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
-          <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>
-        </View>
-      </Card>
+    <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
+      <View style={styles.screen}>
+        <Text style={styles.title}>
+          Start a New Game!
+        </Text>
+        <Card style={styles.inputContainer}>
+          <Text>Select a Number</Text>
+          <Input
+            style={styles.input}
+            blurOnSubmit
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="number-pad"
+            maxLength={2}
+            onChangeText={numbeInputHandler}
+            value={entredValue}
+          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
+            <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>
+          </View>
+        </Card>
 
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
