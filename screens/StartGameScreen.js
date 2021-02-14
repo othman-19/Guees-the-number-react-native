@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   Button,
   Keyboard,
   StyleSheet,
@@ -30,8 +31,21 @@ const StartGameScreen = () => {
     const chosenNumber = parseInt(entredValue, 10);
     if (Number.isNaN(chosenNumber)
       || chosenNumber <= 0
-      || chosenNumber <= 0
-    ) return;
+      || chosenNumber > 99
+    ) {
+      Alert.alert(
+        'Please choose another number!',
+        'Your number should be a number between 1 and 99',
+        [
+          {
+            text: 'Okey',
+            style: 'destructive',
+            onPress: resetInputHandler,
+          },
+        ],
+      );
+      return;
+    }
     setConfirmed(true);
     setSelectedNumber(chosenNumber);
     setEntredValue('');
