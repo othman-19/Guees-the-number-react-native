@@ -14,6 +14,8 @@ import Colors from '../constants/colors';
 
 const StartGameScreen = () => {
   const [entredValue, setEntredValue] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState();
 
   const numbeInputHandler = inputText => {
     setEntredValue(inputText.replace(/[^0-9]/g, ''));
@@ -21,7 +23,29 @@ const StartGameScreen = () => {
 
   const resetInputHandler = () => {
     setEntredValue('');
+    setConfirmed(false);
   };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(entredValue, 10);
+    if (Number.isNaN(chosenNumber)
+      || chosenNumber <= 0
+      || chosenNumber <= 0
+    ) return;
+    setConfirmed(true);
+    setSelectedNumber(chosenNumber);
+    setEntredValue('');
+  };
+
+  // let confirmedOutput;
+  // if (confirmed) {
+  //   confirmedOutput = (
+  //     <Text>
+  //       Chosen Number:
+  //       {selectedNumber}
+  //     </Text>
+  //   );
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
@@ -53,11 +77,17 @@ const StartGameScreen = () => {
               <Button
                 title="Confirm"
                 color={Colors.primary}
+                onPress={confirmInputHandler}
               />
             </View>
           </View>
         </Card>
-
+        {confirmed && (
+        <Text>
+          Chosen Number:
+          {selectedNumber}
+        </Text>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
