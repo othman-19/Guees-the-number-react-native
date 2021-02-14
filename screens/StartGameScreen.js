@@ -14,9 +14,15 @@ import Colors from '../constants/colors';
 
 const StartGameScreen = () => {
   const [entredValue, setEntredValue] = useState('');
+
   const numbeInputHandler = inputText => {
     setEntredValue(inputText.replace(/[^0-9]/g, ''));
   };
+
+  const resetInputHandler = () => {
+    setEntredValue('');
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
       <View style={styles.screen}>
@@ -36,8 +42,19 @@ const StartGameScreen = () => {
             value={entredValue}
           />
           <View style={styles.buttonContainer}>
-            <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
-            <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>
+            <View style={styles.button}>
+              <Button
+                title="Reset"
+                color={Colors.accent}
+                onPress={resetInputHandler}
+              />
+            </View>
+            <View style={styles.button}>
+              <Button
+                title="Confirm"
+                color={Colors.primary}
+              />
+            </View>
           </View>
         </Card>
 
